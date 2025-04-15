@@ -12,23 +12,6 @@ BOT_API_URL = st.secrets.get("BOT_API_URL", None)
 API_KEY = st.secrets.get("BOT_API_KEY", None)
 HEADERS = {'X-API-Key': API_KEY} if API_KEY else {}
 
-# <<< --- NEW: Backend Endpoint Requirement --- >>>
-# This frontend page assumes the backend API (`local_bot_runner.py`)
-# will have an endpoint like `/all_logs` that returns the content
-# of `logs/all_profiles_log.json`. You need to add this endpoint
-# to `local_bot_runner.py` if it doesn't exist yet.
-# Example backend endpoint:
-# @app.route('/all_logs', methods=['GET'])
-# def get_all_logs_endpoint():
-#     log_path = "logs/all_profiles_log.json"
-#     if not os.path.exists(log_path): return jsonify({"profiles": {}})
-#     try:
-#         with open(log_path, 'r', encoding='utf-8') as f: data = json.load(f)
-#         return jsonify(data)
-#     except Exception as e: return jsonify({"error": str(e)}), 500
-# <<< --- End Requirement --- >>>
-
-
 # --- Helper Functions ---
 @st.cache_data(ttl=60) # Cache data for 60 seconds
 def fetch_stats_data_from_api():
