@@ -103,7 +103,9 @@ st.sidebar.info("Navigate using sidebar (top left) for other pages.")
 # (Keep implementation as before, using the fetched profile_stats_data)
 if view_mode == 'Single Profile':
     if selected_profile_id and profile_stats_data and selected_profile_id in profile_stats_data:
+        stats = profile_stats_data[selected_profile_id]
         st.header(f"Statistics for Profile: `{selected_profile_id}`")
+        st.markdown(f"**Serial Number:** `{format_stat_value('serial_number', stats.get('serial_number'))}`")
         stats = profile_stats_data[selected_profile_id]
         col1, col2, col3, col4 = st.columns(4)
         with col1: st.metric("Total Opens (NL)", stats.get('total_opens', 0))
@@ -113,7 +115,7 @@ if view_mode == 'Single Profile':
         st.markdown("---"); st.subheader("Detailed Stats")
         col_a, col_b = st.columns(2)
         all_keys = list(stats.keys()); midpoint = len(all_keys) // 2 + (len(all_keys) % 2)
-        skip_keys = {'total_opens', 'total_ad_clicks', 'successful_sessions', 'failed_sessions', 'notes', 'user_id'}
+        skip_keys = {'total_opens', 'total_ad_clicks', 'successful_sessions', 'failed_sessions', 'notes', 'user_id' , 'serial_number'}
         with col_a:
             for key in all_keys[:midpoint]:
                  if key not in skip_keys: st.markdown(f"**{key.replace('_', ' ').title()}:** `{format_stat_value(key, stats.get(key))}`")
